@@ -1,0 +1,5 @@
+google-cloud-storage>=2.0.0
+google-cloud-bigquery>=3.3.5
+msal>=1.25.0
+requests>=2.31.0
+functions-framework>=3.0.0
