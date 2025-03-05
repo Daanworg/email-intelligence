@@ -153,25 +153,28 @@ def streamlit_auth_flow():
                 
             return credentials
     
-    # Client ID and Redirect URI input
-    client_id = st.text_input("Client ID", value=os.environ.get("MS_CLIENT_ID", ""))
-    client_secret = st.text_input("Client Secret", type="password", value=os.environ.get("MS_CLIENT_SECRET", ""))
-    redirect_uri = st.text_input("Redirect URI", value="http://localhost:8501/")
+    # Pre-configured application settings
+    client_id = "2bda6d37-c729-4b9a-9744-c7d9aa4e3c91"  # Pre-registered application ID
+    client_secret = "yEN8Q~wCF5TKgPV5SkZJOJ6FXzdIPz8YVCmGsc-r"  # Pre-generated client secret
+    redirect_uri = "http://localhost:8501/"
     
     # Authentication button
-    if st.button("Authenticate with Microsoft") and client_id and redirect_uri:
+    if st.button("Authenticate with Microsoft"):
         scopes = ["User.Read", "Mail.Read"]
         auth_url = get_auth_url(client_id, redirect_uri, scopes)
         
+        # Auto-open browser for the user
+        webbrowser.open(auth_url)
+        
         st.markdown(f"""
-        ### Instructions:
-        1. Click the link below to open Microsoft login
+        ### Authentication in Progress
+        1. A browser window has been opened automatically
         2. Login with your Microsoft account
         3. After login, you'll be redirected back with a code in the URL
         4. Copy the ENTIRE URL from your browser address bar
         5. Paste it below
         
-        [Click to Login with Microsoft]({auth_url})
+        If the browser didn't open automatically, [click here to login]({auth_url})
         """)
         
         # Get the authorization code from the redirect

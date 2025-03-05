@@ -48,6 +48,8 @@ with st.sidebar:
             st.warning("Not authenticated with Microsoft Graph")
             if st.button("Authenticate Now"):
                 st.session_state.show_auth = True
+                # Auto-launch authentication immediately
+                webbrowser.open("http://localhost:8501/")
     
     with help_tab:
         st.markdown("""
@@ -56,10 +58,9 @@ with st.sidebar:
         This dashboard connects to Microsoft 365 to intelligently prioritize your emails.
         
         ### First-time setup:
-        1. Register an app in Azure AD
-        2. Grant Mail.Read permissions
-        3. Create a client secret
-        4. Use the Authentication tab
+        1. Click the "Authenticate Now" button
+        2. Sign in with your Microsoft account
+        3. Copy the callback URL and paste it back in the app
         
         ### Using the dashboard:
         - Adjust filters in the sidebar
@@ -102,6 +103,8 @@ if not credentials or not is_token_valid(credentials):
         st.warning("Please authenticate with Microsoft Graph to use this dashboard")
         if st.button("Authenticate Now", key="main_auth_button"):
             st.session_state.show_auth = True
+            # Auto-launch authentication immediately
+            webbrowser.open("http://localhost:8501/")
             st.experimental_rerun()
     
     # Show demo mode option
